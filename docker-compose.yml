@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  # PostgreSQL database
+  db:
+    image: "postgres:15"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=compose-postgres
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+
+  # # Spring Boot application
+  # app:
+  #   build: 
+  #     context: .
+  #     dockerfile: ./.docker/java/Dockerfile.java
+  #   environment:
+  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+  #     - SPRING_DATASOURCE_USERNAME=compose-postgres
+  #     - SPRING_DATASOURCE_PASSWORD=compose-postgres
+  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  #   depends_on:
+  #     - db
+  #   # Restart policy to ensure that the app restarts if the database restarts
+  #   restart: always
+
+  # # Nginx reverse proxy
+  # nginx:
+  #   build:
+  #     context: .
+  #     dockerfile: ./.docker/nginx/Dockerfile.nginx
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - app
+  #   # Restart policy to ensure that NGINX restarts if the app restarts
+  #   restart: always
